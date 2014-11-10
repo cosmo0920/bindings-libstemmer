@@ -17,6 +17,7 @@ cabal-version:       >=1.10
 
 library
   exposed-modules:     Bindings.Stemmer.Raw
+                       Bindings.Stemmer
   -- other-modules:
   -- other-extensions:
   extra-libraries:     stemmer
