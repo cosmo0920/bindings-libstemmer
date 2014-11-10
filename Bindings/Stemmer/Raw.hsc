@@ -12,5 +12,5 @@ import Foreign.Ptr
 #ccall sb_stemmer_list , IO (Ptr CString)
 #ccall sb_stemmer_new , CString -> CString -> IO (Ptr <struct sb_stemmer>)
 #ccall sb_stemmer_delete , Ptr <struct sb_stemmer> -> IO ()
-#ccall sb_stemmer_stem , Ptr <struct sb_stemmer> -> Ptr CUChar -> CInt -> IO (Ptr CUChar)
+#ccall sb_stemmer_stem , Ptr <struct sb_stemmer> -> CString -> CInt -> IO CString
 #ccall sb_stemmer_length , Ptr <struct sb_stemmer> -> IO CInt
