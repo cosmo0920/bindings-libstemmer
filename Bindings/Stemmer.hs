@@ -52,6 +52,10 @@ data Stem = Stem { language :: Language
 type Stemmer = Ptr C'sb_stemmer
 
 -- | create 'Stem' type
+--
+--   * algorithm: 'Language'
+--
+--   * encoding: 'Encoding'
 init_stemmer :: Language -> Encoding -> IO Stem
 init_stemmer lang enc = do
   return Stem { language = lang
@@ -65,15 +69,10 @@ new_stemmer Stem{..} = do
   stemmer <- c'sb_stemmer_new algorithm cword_enc
   return stemmer
 
--- | stem words with Stem Type and word
---
---   * algorithm: 'Language'
---
---   * encoding: 'Encoding'
-stemword :: Stem -> String -> IO String
-stemword Stem{..} word = do
+-- | stem word with 'Stemmer'
+stemword :: Stemmer -> String -> IO String
+stemword stemmer word = do
   cword <- newCString word
-  stemmer <- new_stemmer Stem{..}
   strPtr <- c'sb_stemmer_stem stemmer cword (fromIntegral $ length word)
   str_length <- c'sb_stemmer_length stemmer
   peekCStringLen (strPtr, fromIntegral str_length)
@@ -83,8 +82,8 @@ delete_stemmer :: Stemmer -> IO ()
 delete_stemmer = c'sb_stemmer_delete
 
 -- | stem words with unsafePerformIO
-unsafeStemword :: Stem -> String -> String
-unsafeStemword stem word = unsafePerformIO $ stemword stem word
+unsafeStemword :: Stemmer -> String -> String
+unsafeStemword stemmer word = unsafePerformIO $ stemword stemmer word
 
 -- | 'Encoding' Type Util function
 encodingCString :: Encoding -> IO CString
