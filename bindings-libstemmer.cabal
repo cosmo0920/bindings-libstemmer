@@ -29,6 +29,8 @@ library
   default-extensions:  GeneralizedNewtypeDeriving
                        ForeignFunctionInterface
                        CPP
+                       ExtendedDefaultRules
+                       RecordWildCards
 source-repository head
   type: git
   location: git://github.com/cosmo0920/bindings-libstemmer.git

@@ -29,28 +29,37 @@ data Language = Danish
               | Turkish
               deriving Show
 
--- stem words with default setting
--- * algorithm: English
--- * encoding: UTF_8
-stemword :: String -> IO String
-stemword word = do
+data Stem = Stem { language :: Language
+                 , encoding :: Encoding }
+          deriving Show
+
+init_stem :: Language -> Encoding -> IO Stem
+init_stem lang enc = do
+  return Stem { language = lang
+              , encoding = enc  }
+
+-- stem words with Stem Type and word
+-- * algorithm: Language
+-- * encoding: Encoding
+stemword :: Stem -> String -> IO String
+stemword Stem{..} word = do
   cword <- newCString word
-  cword_enc <- encoding UTF_8
-  algorithm <- languageCString English
+  cword_enc <- encodingCString encoding
+  algorithm <- languageCString language
   stemmer <- c'sb_stemmer_new algorithm cword_enc
   strPtr <- c'sb_stemmer_stem stemmer cword (fromIntegral $ length word)
   str_length <- c'sb_stemmer_length stemmer
   peekCStringLen (strPtr, fromIntegral str_length)
 
 -- stem words with unsafePerformIO
-unsafeStemword :: String -> String
-unsafeStemword = unsafePerformIO . stemword
+unsafeStemword :: Stem -> String -> String
+unsafeStemword stem word = unsafePerformIO $ stemword stem word
 
--- Specify Encode
+-- Encoding Type Util function
+encodingCString :: Encoding -> IO CString
+encodingCString = newCString . show
 
-encoding :: Encoding -> IO CString
-encoding = newCString . show
-
+-- Language Type Util function
 languageCString :: Language -> IO CString
 languageCString = newCString . go . show
     where go (x:xs) = (toLower x) : xs
