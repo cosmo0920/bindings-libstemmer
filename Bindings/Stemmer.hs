@@ -6,12 +6,14 @@ import System.IO.Unsafe (unsafePerformIO)
 import Data.Char (toLower)
 import Foreign.Ptr
 
+-- | 'Encoding' Type
 data Encoding = UTF_8
               | ISO_8859_1
               | ISO_8859_2
               | KOI8_R
               deriving Show
 
+-- | 'Language' Type
 data Language = Danish
               | Dutch
               | English
@@ -30,17 +32,23 @@ data Language = Danish
               | Turkish
               deriving Show
 
+-- | 'Stem' Type
 data Stem = Stem { language :: Language
                  , encoding :: Encoding }
           deriving Show
 
+-- | 'Stemmer' Type
+--
+--   Wrapper type for Ptr C'sb_stemmer.
 type Stemmer = Ptr C'sb_stemmer
 
+-- | create 'Stem' type
 init_stemmer :: Language -> Encoding -> IO Stem
 init_stemmer lang enc = do
   return Stem { language = lang
               , encoding = enc  }
 
+-- | create stemmer instance
 new_stemmer :: Stem -> IO Stemmer
 new_stemmer Stem{..} = do
   cword_enc <- encodingCString encoding
@@ -48,9 +56,11 @@ new_stemmer Stem{..} = do
   stemmer <- c'sb_stemmer_new algorithm cword_enc
   return stemmer
 
--- stem words with Stem Type and word
--- * algorithm: Language
--- * encoding: Encoding
+-- | stem words with Stem Type and word
+--
+--   * algorithm: 'Language'
+--
+--   * encoding: 'Encoding'
 stemword :: Stem -> String -> IO String
 stemword Stem{..} word = do
   cword <- newCString word
@@ -59,18 +69,19 @@ stemword Stem{..} word = do
   str_length <- c'sb_stemmer_length stemmer
   peekCStringLen (strPtr, fromIntegral str_length)
 
+-- | delete stemmer instance
 delete_stemmer :: Stemmer -> IO ()
 delete_stemmer = c'sb_stemmer_delete
 
--- stem words with unsafePerformIO
+-- | stem words with unsafePerformIO
 unsafeStemword :: Stem -> String -> String
 unsafeStemword stem word = unsafePerformIO $ stemword stem word
 
--- Encoding Type Util function
+-- | 'Encoding' Type Util function
 encodingCString :: Encoding -> IO CString
 encodingCString = newCString . show
 
--- Language Type Util function
+-- | 'Language' Type Util function
 languageCString :: Language -> IO CString
 languageCString = newCString . go . show
     where go (x:xs) = (toLower x) : xs
