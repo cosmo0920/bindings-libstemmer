@@ -16,6 +16,11 @@ import Data.Char (toLower)
 import Foreign.Ptr
 
 -- | 'Encoding' Type
+--
+--   === NOTE:
+--
+--   * 'ISO_8859_2' for 'Romanian' only.
+--   * 'KOI8_R' for 'Russian' only.
 data Encoding = UTF_8
               | ISO_8859_1
               | ISO_8859_2
