@@ -1,4 +1,4 @@
-Bindings-Stemmer
+Bindings-Libstemmer
 ===
 
 low level binding for libstemmer.
