@@ -1,4 +1,13 @@
-module Bindings.Stemmer where
+module Bindings.Stemmer
+       ( Encoding(..)
+       , Language(..)
+       , Stem(..)
+       , Stemmer(..)
+       , init_stemmer
+       , new_stemmer
+       , stemword
+       , delete_stemmer
+       , unsafeStemword ) where
 
 import Bindings.Stemmer.Raw
 import Foreign.C.String
