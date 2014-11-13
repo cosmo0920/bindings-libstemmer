@@ -19,7 +19,7 @@ import Foreign.Ptr
 --
 --   === NOTE:
 --
---   * 'ISO_8859_2' for 'Romanian' only.
+--   * 'ISO_8859_2' for 'Romanian' | 'Hungarian' only.
 --   * 'KOI8_R' for 'Russian' only.
 data Encoding = UTF_8
               | ISO_8859_1
