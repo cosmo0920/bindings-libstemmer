@@ -4,7 +4,7 @@
 name:                bindings-libstemmer
 version:             0.1.0.0
 synopsis:            low level binding for libstemmer.
-description:         a binging for libstemmer.
+description:         A binding for libstemmer.
 license:             MIT
 license-file:        LICENSE
 author:              cosmo0920
