@@ -10,7 +10,7 @@ license-file:        LICENSE
 author:              cosmo0920
 maintainer:          cosmo0920.wp@gmail.com
 -- copyright:
-category:            Text
+category:            FFI
 build-type:          Simple
 extra-source-files:  README.md
 cabal-version:       >=1.10
