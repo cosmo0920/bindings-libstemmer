@@ -56,7 +56,7 @@ data StemConfig = StemConfig { language :: Language
 --   Wrapper type for Ptr C'sb_stemmer.
 type Stemmer = Ptr C'sb_stemmer
 
--- | create 'Stem' type
+-- | create 'StemConfig' type
 --
 --   * algorithm: 'Language'
 --
