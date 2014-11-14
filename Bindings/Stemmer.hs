@@ -1,7 +1,7 @@
 module Bindings.Stemmer
        ( Encoding(..)
        , Language(..)
-       , Stem(..)
+       , StemConfig(..)
        , Stemmer(..)
        , init_stemmer
        , new_stemmer
@@ -47,7 +47,7 @@ data Language = Danish
               deriving Show
 
 -- | 'Stem' Type
-data Stem = Stem { language :: Language
+data StemConfig = StemConfig { language :: Language
                  , encoding :: Encoding }
           deriving Show
 
@@ -61,14 +61,14 @@ type Stemmer = Ptr C'sb_stemmer
 --   * algorithm: 'Language'
 --
 --   * encoding: 'Encoding'
-init_stemmer :: Language -> Encoding -> IO Stem
+init_stemmer :: Language -> Encoding -> IO StemConfig
 init_stemmer lang enc = do
-  return Stem { language = lang
-              , encoding = enc  }
+  return StemConfig { language = lang
+                    , encoding = enc  }
 
 -- | create stemmer instance
-new_stemmer :: Stem -> IO Stemmer
-new_stemmer Stem{..} = do
+new_stemmer :: StemConfig -> IO Stemmer
+new_stemmer StemConfig{..} = do
   cword_enc <- encodingCString encoding
   algorithm <- languageCString language
   stemmer <- c'sb_stemmer_new algorithm cword_enc
