@@ -46,7 +46,7 @@ data Language = Danish
               | Turkish
               deriving Show
 
--- | 'Stem' Type
+-- | 'StemConfig' Type
 data StemConfig = StemConfig { language :: Language
                  , encoding :: Encoding }
           deriving Show
