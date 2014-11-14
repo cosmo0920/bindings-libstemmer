@@ -48,8 +48,8 @@ data Language = Danish
 
 -- | 'StemConfig' Type
 data StemConfig = StemConfig { language :: Language
-                 , encoding :: Encoding }
-          deriving Show
+                             , encoding :: Encoding }
+                deriving Show
 
 -- | 'Stemmer' Type
 --
