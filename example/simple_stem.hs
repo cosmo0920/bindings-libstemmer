@@ -1,5 +1,4 @@
 import Bindings.Stemmer.Simple
-import Bindings.Stemmer (Language(..), Encoding(..), init_stemmer)
 
 main :: IO ()
 main = do

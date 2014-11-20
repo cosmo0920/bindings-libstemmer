@@ -1,9 +1,14 @@
 module Bindings.Stemmer.Simple
-       ( module Bindings.Stemmer
+       ( Stemmer(..)
+       , Language(..)
+       , Encoding(..)
+       , init_stemmer
        , simple_stem ) where
 
 import Bindings.Stemmer (StemConfig(..), Stemmer(..),
-                         new_stemmer, delete_stemmer, stemword)
+                         Language(..), Encoding(..),
+                         init_stemmer, new_stemmer,
+                         delete_stemmer, stemword)
 import Control.Monad.Trans.Resource (allocate, runResourceT, release)
 import Control.Monad.Trans.Class (lift)
 
