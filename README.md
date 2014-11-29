@@ -19,3 +19,9 @@ $ sudo apt-get install libstemmer-dev
 $ brew tap cosmo0920/tokenizers
 $ brew install cosmo0920/tokenizers/libstemmer
 ```
+
+## Install
+
+```bash
+$ cabal install bindings-libstemmer
+```
