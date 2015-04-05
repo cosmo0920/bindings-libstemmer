@@ -1,14 +1,15 @@
 language: haskell
 
 env:
-  - GHCVER=7.6.3
-  - GHCVER=7.8.4
+  - GHCVER=7.6.3 CABALVER=1.20
+  - GHCVER=7.8.4 CABALVER=1.20
+  - GHCVER=7.10.1 CABALVER=1.22
 
 before_install:
   - sudo add-apt-repository -y ppa:hvr/ghc
   - sudo apt-get update
-  - sudo apt-get install -y -qq cabal-install-1.20 ghc-$GHCVER alex
-  - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/1.20/bin:$PATH
+  - sudo apt-get install -y -qq cabal-install-$CABALVER ghc-$GHCVER alex
+  - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:$PATH
   - export PATH=~/.cabal/bin:$PATH # for alex
   - cabal update
   - sudo apt-get update
